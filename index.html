@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pokédex</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Pokédex</h1>
+    
+    <div class="filters">
+      <input type="text" id="searchInput" placeholder="Search Pokémon..." />
+      <select id="typeFilter">
+        <option value="">All Types</option>
+      </select>
+    </div>
+
+    <div id="loading">Loading Pokémon...</div>
+    <div id="pokedex" class="pokedex-grid"></div>
+
+    <div id="pagination">
+      <button id="prevPage">Previous</button>
+      <span id="pageNumber">Page 1</span>
+      <button id="nextPage">Next</button>
+    </div>
+  </div>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <img id="modal-img" />
+      <h2 id="modal-name"></h2>
+      <p id="modal-id"></p>
+      <p id="modal-types"></p>
+      <ul id="modal-stats"></ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

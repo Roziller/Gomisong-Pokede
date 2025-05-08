@@ -5,8 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pokédex</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div class="pokeball-bg">
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" class="pokeball pokeball1" />
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" class="pokeball pokeball2" />
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" class="pokeball pokeball3" />
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" class="pokeball pokeball4" />
+  </div>
   <div class="container">
     <h1>Pokédex</h1>
     
@@ -30,6 +37,7 @@
   <div id="modal" class="modal hidden">
     <div class="modal-content">
       <span class="close-button">&times;</span>
+      <div id="type-effect"></div>
       <img id="modal-img" />
       <h2 id="modal-name"></h2>
       <p id="modal-id"></p>

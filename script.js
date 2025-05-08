@@ -102,7 +102,7 @@ async function renderPage() {
     detailedPokemon.push(details);
   }
 
-  // Now filter by type if needed
+
   const filteredByType = selectedType
     ? detailedPokemon.filter(p => p.typesList.includes(selectedType))
     : detailedPokemon;
@@ -174,6 +174,26 @@ function showModal(pokemon) {
     `;
     statsList.appendChild(li);
   });
+
+  // Show type effect animation
+  const effectDiv = document.getElementById('type-effect');
+  effectDiv.innerHTML = '';
+  const mainType = pokemon.typesList[0];
+  let effectClass = '';
+  if (mainType === 'fire') effectClass = 'effect-fire';
+  else if (mainType === 'water') effectClass = 'effect-water';
+  else if (mainType === 'electric') effectClass = 'effect-electric';
+  else if (mainType === 'grass') effectClass = 'effect-grass';
+
+
+  console.log(mainType, effectClass);
+
+  if (effectClass) {
+    const effect = document.createElement('div');
+    effect.className = effectClass;
+    effectDiv.appendChild(effect);
+    setTimeout(() => { effectDiv.innerHTML = ''; }, 1000); // Remove after animation
+  }
 
   document.getElementById('modal').classList.remove('hidden');
 }

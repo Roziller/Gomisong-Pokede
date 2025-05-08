@@ -1,6 +1,6 @@
 body {
     font-family: 'Segoe UI', sans-serif;
-    background: #f0f8ff;
+    background: #232946;
     margin: 0;
     padding: 20px;
     text-align: center;
@@ -11,6 +11,14 @@ body {
   }
   
   h1 {
+    font-family: 'Luckiest Guy', 'Segoe UI', Arial, sans-serif;
+    font-size: 3em;
+    color: #ffcb05;
+    letter-spacing: 2px;
+    text-shadow:
+      -3px 3px 0 #2a75bb,
+      -6px 6px 0 #3b4cca,
+      2px 2px 0 #2a75bb;
     margin-bottom: 20px;
   }
   
@@ -228,5 +236,74 @@ body {
     font-size: 0.9em;
     color: #333;
     font-weight: bold;
+  }
+  
+  .pokeball-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  .pokeball {
+    position: absolute;
+    opacity: 0.12;
+    width: 220px;
+    height: 220px;
+    animation: floatPokeball 18s linear infinite;
+  }
+  
+  .pokeball1 { top: 10%; left: 5%; animation-delay: 0s; }
+  .pokeball2 { top: 60%; left: 80%; animation-delay: 4s; }
+  .pokeball3 { top: 30%; left: 60%; animation-delay: 8s; }
+  .pokeball4 { top: 80%; left: 20%; animation-delay: 12s; }
+  
+  @keyframes floatPokeball {
+    0% { transform: translateY(0) scale(1) rotate(0deg);}
+    50% { transform: translateY(-40px) scale(1.1) rotate(20deg);}
+    100% { transform: translateY(0) scale(1) rotate(0deg);}
+  }
+  
+  #type-effect {
+    position: absolute;
+    left: 50%;
+    top: 40px;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 10;
+    width: 120px;
+    height: 120px;
+  }
+  
+  .effect-fire {
+    background: url('https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif') center/contain no-repeat;
+    width: 100px;
+    height: 100px;
+    animation: effect-pop 1s linear;
+  }
+  .effect-water {
+    background: url('https://i.imgur.com/2yQ4F5B.gif') center/contain no-repeat;
+    width: 100px;
+    height: 100px;
+    animation: effect-pop 1s linear;
+  }
+  .effect-electric {
+    background: url('https://i.imgur.com/6Q1Q5Qb.gif') center/contain no-repeat;
+    width: 100px;
+    height: 100px;
+    animation: effect-pop 1s linear;
+  }
+  .effect-grass {
+    background: url('https://i.imgur.com/3Q9Z1Zm.gif') center/contain no-repeat;
+    width: 100px;
+    height: 100px;
+    animation: effect-pop 1s linear;
+  }
+  
+  @keyframes effect-pop {
+    0% { opacity: 0; transform: scale(0.5) translateX(-50%);}
+    20% { opacity: 1; transform: scale(1.1) translateX(-50%);}
+    80% { opacity: 1; transform: scale(1) translateX(-50%);}
+    100% { opacity: 0; transform: scale(0.5) translateX(-50%);}
   }
   

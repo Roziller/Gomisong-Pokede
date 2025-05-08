@@ -161,8 +161,17 @@ function showModal(pokemon) {
   const statsList = document.getElementById('modal-stats');
   statsList.innerHTML = '';
   pokemon.stats.forEach(stat => {
+    const statName = stat.stat.name.toUpperCase();
+    const statValue = stat.base_stat;
+    const barWidth = Math.min(statValue, 150); // cap for visual
     const li = document.createElement('li');
-    li.innerHTML = `<span>${stat.stat.name}</span><span>${stat.base_stat}</span>`;
+    li.innerHTML = `
+      <span>${statName}</span>
+      <div class="stat-bar-bg">
+        <div class="stat-bar" style="width: ${barWidth}px"></div>
+        <span class="stat-value">${statValue}</span>
+      </div>
+    `;
     statsList.appendChild(li);
   });
 

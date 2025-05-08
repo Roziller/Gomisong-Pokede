@@ -11,6 +11,27 @@ const perPage = 20;
 let pokemonList = [];
 let allTypes = [];
 
+const typeColors = {
+  normal: '#A8A77A',
+  fire: '#EE8130',
+  water: '#6390F0',
+  electric: '#F7D02C',
+  grass: '#7AC74C',
+  ice: '#96D9D6',
+  fighting: '#C22E28',
+  poison: '#A33EA1',
+  ground: '#E2BF65',
+  flying: '#A98FF3',
+  psychic: '#F95587',
+  bug: '#A6B91A',
+  rock: '#B6A136',
+  ghost: '#735797',
+  dragon: '#6F35FC',
+  dark: '#705746',
+  steel: '#B7B7CE',
+  fairy: '#D685AD'
+};
+
 document.addEventListener('DOMContentLoaded', async () => {
   await fetchAllPokemon();
   setupEventListeners();
@@ -58,13 +79,9 @@ function setupEventListeners() {
 
 function getFilteredPokemon() {
   const query = searchInput.value.toLowerCase();
-  const selectedType = typeFilter.value;
-
-  return pokemonList.filter(pokemon => {
-    const matchesName = pokemon.name.includes(query) || String(pokemon.id).includes(query);
-    const matchesType = !selectedType || pokemon.types?.includes(selectedType);
-    return matchesName && matchesType;
-  });
+  return pokemonList.filter(pokemon =>
+    pokemon.name.includes(query) || String(pokemon.id).includes(query)
+  );
 }
 
 async function renderPage() {
@@ -77,10 +94,21 @@ async function renderPage() {
 
   const pagePokemon = filtered.slice(start, end);
 
+  const selectedType = typeFilter.value;
+  const detailedPokemon = [];
   for (let pokemon of pagePokemon) {
     const details = await fetchPokemonDetails(pokemon.url);
-    pokemon.types = details.types.map(t => t.type.name);
-    createPokemonCard(details);
+    details.typesList = details.types.map(t => t.type.name);
+    detailedPokemon.push(details);
+  }
+
+  // Now filter by type if needed
+  const filteredByType = selectedType
+    ? detailedPokemon.filter(p => p.typesList.includes(selectedType))
+    : detailedPokemon;
+
+  for (let pokemon of filteredByType) {
+    createPokemonCard(pokemon);
   }
 
   pageNumber.textContent = `Page ${currentPage}`;
@@ -102,10 +130,20 @@ async function fetchPokemonDetails(url) {
 function createPokemonCard(pokemon) {
   const card = document.createElement('div');
   card.className = 'pokemon-card';
+
+  const typeName = pokemon.typesList[0];
+  const bgColor = typeColors[typeName] || '#fff';
+  card.style.backgroundColor = bgColor;
+
   card.innerHTML = `
     <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" />
     <h3>${pokemon.name}</h3>
     <p>#${pokemon.id}</p>
+    <div class="type-container">
+      ${pokemon.typesList.map(type => 
+        `<span class="type-label" style="background-color: ${typeColors[type] || '#fff'}">${type}</span>`
+      ).join('')}
+    </div>
   `;
   card.addEventListener('click', () => showModal(pokemon));
   pokedex.appendChild(card);
@@ -115,7 +153,10 @@ function showModal(pokemon) {
   document.getElementById('modal-img').src = pokemon.sprites.front_default;
   document.getElementById('modal-name').textContent = pokemon.name;
   document.getElementById('modal-id').textContent = `#${pokemon.id}`;
-  document.getElementById('modal-types').innerHTML = pokemon.types.map(t => `<span>${t}</span>`).join('');
+  const types = pokemon.typesList.map(type => 
+    `<span class="type-label" style="background-color: ${typeColors[type] || '#fff'}">${type}</span>`
+  ).join('');
+  document.getElementById('modal-types').innerHTML = types;
 
   const statsList = document.getElementById('modal-stats');
   statsList.innerHTML = '';
